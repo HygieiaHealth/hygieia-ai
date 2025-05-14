@@ -1,0 +1,1290 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        140,
+        995.5
+      ],
+      "id": "65e51c3f-d171-4a1a-a912-1c556030792b",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.json2video.com/v2/movies",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"template\": \"9XtfsD0C3Tb2vbvfc84d\",\n  \"variables\": {\n    \"title\": \"{{ $('Google Sheets').item.json.Subject }}\",\n    \"voiceModel\": \"elevenlabs\",\n    \"voice.ConnectionID\": \"elevenlabs\",\n    \"voiceID\": \"21m00Tcm4TlvDq8ikWAM\",\n    \"imageModel\": \"flux-pro\",\n    \"introImagePrompt\": \"{{ $('Intro & Outro').item.json.output.introImagePrompt }}\",\n    \"introVoiceoverText\": \"{{ $('Intro & Outro').item.json.output.introVoiceoverText }}\",\n    \"outroImagePrompt\": \"{{ $('Intro & Outro').item.json.output.outroImagePrompt }}\",\n    \"outroVoiceoverText\": \"{{ $('Intro & Outro').item.json.output.outroVoiceoverText }}\",\n    \"ranking\": [\n      {\n        \"voiceoverText\": \"{{ $json.output[0].voiceoverText }}\",\n        \"imagePrompt\": \"{{ $json.output[0].imagePrompt }}\",\n        \"lowerThirdText\": \"{{ $json.output[0].lowerThirdText }}\"\n      },\n      {\n        \"voiceoverText\": \"{{ $json.output[1].voiceoverText }}\",\n        \"imagePrompt\": \"{{ $json.output[1].imagePrompt }}\",\n        \"lowerThirdText\": \"{{ $json.output[1].lowerThirdText }}\"\n      },\n      {\n        \"voiceoverText\": \"{{ $json.output[2].voiceoverText }}\",\n        \"imagePrompt\": \"{{ $json.output[2].imagePrompt }}\",\n        \"lowerThirdText\": \"{{ $json.output[2].lowerThirdText }}\"\n      },\n      {\n        \"voiceoverText\": \"{{ $json.output[3].voiceoverText }}\",\n        \"imagePrompt\": \"{{ $json.output[3].imagePrompt }}\",\n        \"lowerThirdText\": \"{{ $json.output[3].lowerThirdText }}\"\n      },\n      {\n        \"voiceoverText\": \"{{ $json.output[4].voiceoverText }}\",\n        \"imagePrompt\": \"{{ $json.output[4].imagePrompt }}\",\n        \"lowerThirdText\": \"{{ $json.output[4].lowerThirdText }}\"\n      },\n      {\n        \"voiceoverText\": \"{{ $json.output[5].voiceoverText }}\",\n        \"imagePrompt\": \"{{ $json.output[5].imagePrompt }}\",\n        \"lowerThirdText\": \"{{ $json.output[5].lowerThirdText }}\"\n      },\n      {\n        \"voiceoverText\": \"{{ $json.output[6].voiceoverText }}\",\n        \"imagePrompt\": \"{{ $json.output[6].imagePrompt }}\",\n        \"lowerThirdText\": \"{{ $json.output[6].lowerThirdText }}\"\n      },\n      {\n        \"voiceoverText\": \"{{ $json.output[7].voiceoverText }}\",\n        \"imagePrompt\": \"{{ $json.output[7].imagePrompt }}\",\n        \"lowerThirdText\": \"{{ $json.output[7].lowerThirdText }}\"\n      },\n      {\n        \"voiceoverText\": \"{{ $json.output[8].voiceoverText }}\",\n        \"imagePrompt\": \"{{ $json.output[8].imagePrompt }}\",\n        \"lowerThirdText\": \"{{ $json.output[8].lowerThirdText }}\"\n      },\n      {\n        \"voiceoverText\": \"{{ $json.output[9].voiceoverText }}\",\n        \"imagePrompt\": \"{{ $json.output[9].imagePrompt }}\",\n        \"lowerThirdText\": \"{{ $json.output[9].lowerThirdText }}\"\n      }\n    ]\n  }\n}",
+        "options": {
+          "redirect": {
+            "redirect": {}
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1332,
+        895.5
+      ],
+      "id": "441fce16-c151-463e-984c-9d7d1921d195",
+      "name": "Generate Video",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "shmxYtJHdwPSk6Ku",
+          "name": "Header Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://api.json2video.com/v2/movies",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "project",
+              "value": "={{ $('Generate Video').item.json.project }}"
+            }
+          ]
+        },
+        "options": {
+          "redirect": {
+            "redirect": {}
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1772,
+        895.5
+      ],
+      "id": "19d45c08-a753-4381-95b1-71fab7154d5d",
+      "name": "Get Video",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "shmxYtJHdwPSk6Ku",
+          "name": "Header Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 10
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2212,
+        995.5
+      ],
+      "id": "6e0b0073-c815-4f1d-b483-61be32a572dd",
+      "name": "10 Secs",
+      "webhookId": "4ed8db71-25d8-484b-a6e9-23f411ed040d"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "5b858d82-0a7c-44ea-940b-ae83a7c22f3c",
+                    "leftValue": "={{ $json.movie.status }}",
+                    "rightValue": "done",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Done"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.movie.status }}",
+                    "rightValue": "error",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "2e627457-06c8-411e-b6e0-f2e0207a3882"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Error"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "6ebbf3c8-599e-451d-acf6-4e63fef69ae0",
+                    "leftValue": "={{ $json.movie.status }}",
+                    "rightValue": "running",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Running"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "e22298ac-6f08-4f73-a361-768a17ea9a3a",
+                    "leftValue": "={{ $json.movie.status }}",
+                    "rightValue": "preparing",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Preparing"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        1992,
+        774.5
+      ],
+      "id": "87f908d9-0e90-47c2-8f27-4c64cb7d5cca",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "Generate some ideas",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=# Overview\nYou are an AI that generates creative and engaging subject ideas for \"Top Ten Rankings\" videos. Return an array of 10 distinct subject ideas, where each idea is no more than 4 words long. Subjects must be timeless and should not require real-time or current events knowledge. Focus on evergreen topics such as \"cities in the US\", \"breakfast meals\", or \"clothing brands\".\n\nOutput only the array of subject ideas, with no extra explanation."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.8,
+      "position": [
+        360,
+        200
+      ],
+      "id": "bcd0ee6e-077c-4960-b876-00d6e74c3b7c",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        388,
+        420
+      ],
+      "id": "4054c89f-963b-4177-b644-f943eabb82c8",
+      "name": "4o-mini",
+      "credentials": {
+        "openRouterApi": {
+          "id": "xwOqjoQjtxcog1k7",
+          "name": "OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"topTenSubjects\": [\n    \"Cities in the US\",\n    \"Breakfast meals\",\n    \"Clothing brands\",\n    \"Fictional villains\",\n    \"Luxury cars\",\n    \"Fast food chains\",\n    \"Theme parks\",\n    \"Mobile apps\",\n    \"Board games\",\n    \"Movie soundtracks\"\n  ]\n}\n"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.2,
+      "position": [
+        508,
+        420
+      ],
+      "id": "69cffc27-64c2-4f6f-845d-92307e0fa12a",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "output.topTenSubjects",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        736,
+        200
+      ],
+      "id": "de68c742-0a51-41e3-85c4-2d7d559f5eee",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        956,
+        200
+      ],
+      "id": "b409349b-e6dc-49cf-9c07-43db268ea39e",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1WiP9AicckkynsK8E_CUqSh_IvEy5bJMtXr4qHo-Kf78",
+          "mode": "list",
+          "cachedResultName": "Top Ten Videos",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WiP9AicckkynsK8E_CUqSh_IvEy5bJMtXr4qHo-Kf78/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WiP9AicckkynsK8E_CUqSh_IvEy5bJMtXr4qHo-Kf78/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Subject": "={{ $json['output.topTenSubjects'] }}",
+            "Creation Status": "To Do",
+            "Posting Status": "To Do"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Subject",
+              "displayName": "Subject",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Creation Status",
+              "displayName": "Creation Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Posting Status",
+              "displayName": "Posting Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Video URL",
+              "displayName": "Video URL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1176,
+        200
+      ],
+      "id": "c00d065d-242e-4276-a2b7-815e9b76b544",
+      "name": "Add to Sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "JRZida6erwj587CP",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1GfG9yh0_z1aF-WQ4kBw4_nkGbGxksvNYBfGT_f7iDdk",
+          "mode": "list",
+          "cachedResultName": " Top Ten Videos  ",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1GfG9yh0_z1aF-WQ4kBw4_nkGbGxksvNYBfGT_f7iDdk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1GfG9yh0_z1aF-WQ4kBw4_nkGbGxksvNYBfGT_f7iDdk/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Creation Status",
+              "lookupValue": "To Do"
+            }
+          ]
+        },
+        "options": {
+          "returnFirstMatch": true
+        }
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        360,
+        895.5
+      ],
+      "id": "e8c7046e-9215-43c1-b910-7eea70e38ad5",
+      "name": "Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "JRZida6erwj587CP",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Subject: {{ $json.Subject }}",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=# Overview\nYou are a creative assistant that helps generate engaging content for \"Top Ten Rankings\" videos on various topics. Your job is to take a subject (e.g., \"breakfast foods\", \"action movies\", \"smartphones\", etc.) and create two parts of the script: an intro and an outro. Each part includes a voiceover script and a corresponding visual image prompt.\n\n## Instructions\nGenerate the following for the given subject:\n\n1) introVoiceoverText – Write a short, energetic introduction to the video. It should welcome viewers to the countdown, mention the subject, and create excitement or curiosity about the list.\n\nExample: \"Welcome to our Top 10 countdown of the most popular breakfast foods around the world. Whether you're looking for something hearty or sweet, you won't want to miss this delicious lineup!\"\n\n2) introImagePrompt – Write a visual prompt that reflects the theme of the introVoiceoverText. This should describe a visually appealing scene that matches the subject and tone of the intro.\n\nExample: \"A colorful, high-resolution spread of global breakfast foods on a rustic wooden table, with steam rising and morning sunlight pouring in through a window.\"\n\n3) outroVoiceoverText – Write a warm and satisfying conclusion to the video. It should recap the excitement of the list, encourage viewer engagement (e.g., asking for favorites), and thank the audience for watching.\n\nExample: \"There you have it! The Top 10 breakfast foods that bring joy to mornings worldwide. Which one is your favorite? Thank you for joining us!\"\n\n4) outroImagePrompt – Write a visual prompt that matches the outroVoiceoverText. It should reflect the conclusion and theme of the video in a visually appealing way.\n\nExample: \"A cozy breakfast table with empty plates and coffee cups, soft morning light, and a handwritten 'Thanks for watching!' note.\"\n\n\n## Final Reminders\nKeep the tone fun, informative, and visually descriptive. Always match the tone and imagery to the given subject."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.8,
+      "position": [
+        580,
+        900
+      ],
+      "id": "c82a3879-651a-4d42-b97f-e16caa29f9db",
+      "name": "Intro & Outro"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"introVoiceoverText\": \"[INTRO_VOICEOVER_TEXT]\",\n  \"introImagePrompt\": \"[INTRO_IMAGE_PROMPT]\",\n  \"outroVoiceoverText\": \"[OUTRO_VOICEOVER_TEXT]\",\n  \"outroImagePrompt\": \"[OUTRO_IMAGE_PROMPT]\"\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.2,
+      "position": [
+        720,
+        1120
+      ],
+      "id": "c3551f12-a318-40de-b054-a979f3e95ccd",
+      "name": "Intro & Outro Parser"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Subject: {{ $('Google Sheets').item.json.Subject }}",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=# Overview\nYou are a creative assistant for a Top Ten Rankings video channel. Your task is to generate a full Top 10 countdown for a given subject. Your output must include 10 ranked items, starting from number 10 and counting down to number 1.\n\n## Instructions\nFor each ranked item, generate the following:\n\n1) voiceoverText – A 2–3 sentence script that introduces the item and explains why it earned its spot. Always start by stating the rank and name of the item.\n\nExample: \"Starting off our list at number 10, it's the classic British breakfast. This hearty meal includes fried eggs, bacon, sausages, baked beans, and toast—perfect for a filling start to the day.\"\n\n2) imagePrompt – A descriptive prompt for an image that visually represents the item in the voiceover.\n\nExample: \"A traditional full English breakfast on a plate with fried eggs, crispy bacon, sausages, baked beans, tomatoes, and buttered toast, all beautifully arranged.\"\n\n3) lowerThirdText – A short title or name of the item that appears on screen as a label.\n\nExample: \"English Breakfast\"\n\n## Important Rules:\n- Always start with number 10 and count down to number 1.\n- Make sure each voiceoverText is concise (2–3 sentences).\n- Ensure the imagePrompt clearly matches the visuals described in the voiceover.\n- Keep the tone consistent with the subject (fun, informative, dramatic, etc., depending on the topic).\n- Use variety in language so that each entry feels fresh and not repetitive.\n\n## Output Format\nReturn your results as a JSON array with 10 objects, where each object contains:\n- voiceoverText (string)\n- imagePrompt (string)\n- lowerThirdText (string)\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.8,
+      "position": [
+        956,
+        895.5
+      ],
+      "id": "55e5b1f5-bcc9-45da-b761-ee19516bea4d",
+      "name": "Ranker"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "[\n  {\n    \"voiceoverText\": \"Starting off our list at number 10, it's [Item Name]. [Brief description or interesting fact].\",\n    \"imagePrompt\": \"A detailed image of [Item Name], featuring [visual elements that match the voiceover].\",\n    \"lowerThirdText\": \"[Item Name]\"\n  },\n  {\n    \"voiceoverText\": \"At number 9, we have [Item Name]. [Short reason why it's on the list].\",\n    \"imagePrompt\": \"A vivid image of [Item Name], with [key visual features or setting].\",\n    \"lowerThirdText\": \"[Item Name]\"\n  },\n  {\n    \"voiceoverText\": \"Coming in at number 8 is [Item Name]. [Notable feature or context].\",\n    \"imagePrompt\": \"An image showing [Item Name] with [descriptive visual elements].\",\n    \"lowerThirdText\": \"[Item Name]\"\n  },\n  {\n    \"voiceoverText\": \"Number 7 goes to [Item Name]. [Quick fun fact or explanation].\",\n    \"imagePrompt\": \"A well-lit image of [Item Name] in [relevant setting or action].\",\n    \"lowerThirdText\": \"[Item Name]\"\n  },\n  {\n    \"voiceoverText\": \"At number 6, it's [Item Name]. [Highlight of appeal or significance].\",\n    \"imagePrompt\": \"A close-up of [Item Name], showing [specific features].\",\n    \"lowerThirdText\": \"[Item Name]\"\n  },\n  {\n    \"voiceoverText\": \"Halfway through at number 5, we have [Item Name]. [Interesting detail about it].\",\n    \"imagePrompt\": \"An eye-catching scene with [Item Name], featuring [key visuals].\",\n    \"lowerThirdText\": \"[Item Name]\"\n  },\n  {\n    \"voiceoverText\": \"Coming in at number 4 is [Item Name]. [Why it’s a standout choice].\",\n    \"imagePrompt\": \"A bold image of [Item Name] with [supporting visual context].\",\n    \"lowerThirdText\": \"[Item Name]\"\n  },\n  {\n    \"voiceoverText\": \"Taking the number 3 spot is [Item Name]. [Brief praise or fun fact].\",\n    \"imagePrompt\": \"A striking photo of [Item Name], highlighting [notable characteristics].\",\n    \"lowerThirdText\": \"[Item Name]\"\n  },\n  {\n    \"voiceoverText\": \"Just shy of the top spot at number 2, it's [Item Name]. [Short reason for its high rank].\",\n    \"imagePrompt\": \"A dynamic image of [Item Name] in [action or setting].\",\n    \"lowerThirdText\": \"[Item Name]\"\n  },\n  {\n    \"voiceoverText\": \"And finally, at number 1, it's [Item Name]. [Final compelling reason it tops the list].\",\n    \"imagePrompt\": \"A stunning visual of [Item Name], with [memorable and defining features].\",\n    \"lowerThirdText\": \"[Item Name]\"\n  }\n]\n"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.2,
+      "position": [
+        1044,
+        1115.5
+      ],
+      "id": "5759e4f1-8d54-449f-a623-c4bdc8c1266c",
+      "name": "Rankings"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1GfG9yh0_z1aF-WQ4kBw4_nkGbGxksvNYBfGT_f7iDdk",
+          "mode": "list",
+          "cachedResultName": " Top Ten Videos  ",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1GfG9yh0_z1aF-WQ4kBw4_nkGbGxksvNYBfGT_f7iDdk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1GfG9yh0_z1aF-WQ4kBw4_nkGbGxksvNYBfGT_f7iDdk/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Subject": "={{ $('Google Sheets').item.json.Subject }}",
+            "Creation Status": "Created",
+            "Video URL": "={{ $('Get Video').item.json.movie.url }}"
+          },
+          "matchingColumns": [
+            "Subject"
+          ],
+          "schema": [
+            {
+              "id": "Subject",
+              "displayName": "Subject",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Creation Status",
+              "displayName": "Creation Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Posting Status",
+              "displayName": "Posting Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Video URL",
+              "displayName": "Video URL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        2212,
+        560
+      ],
+      "id": "b8a6dc07-16b9-4c9f-91ca-fd454b84f1a5",
+      "name": "Created Video",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "JRZida6erwj587CP",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1GfG9yh0_z1aF-WQ4kBw4_nkGbGxksvNYBfGT_f7iDdk",
+          "mode": "list",
+          "cachedResultName": " Top Ten Videos  ",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1GfG9yh0_z1aF-WQ4kBw4_nkGbGxksvNYBfGT_f7iDdk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1GfG9yh0_z1aF-WQ4kBw4_nkGbGxksvNYBfGT_f7iDdk/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Subject": "={{ $('Google Sheets').item.json.Subject }}",
+            "Video URL": "Error"
+          },
+          "matchingColumns": [
+            "Subject"
+          ],
+          "schema": [
+            {
+              "id": "Subject",
+              "displayName": "Subject",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Creation Status",
+              "displayName": "Creation Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Posting Status",
+              "displayName": "Posting Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Video URL",
+              "displayName": "Video URL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        2212,
+        760
+      ],
+      "id": "a3039ab7-83f5-4192-bd4e-7789df51c4b6",
+      "name": "Error",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "JRZida6erwj587CP",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "openai/gpt-4o",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        600,
+        1120
+      ],
+      "id": "9d32cca7-5599-4260-b562-3fb17963d5e4",
+      "name": "4o",
+      "credentials": {
+        "openRouterApi": {
+          "id": "xwOqjoQjtxcog1k7",
+          "name": "OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 150
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1552,
+        895.5
+      ],
+      "id": "b5297b45-0406-4629-82dd-fb1b6c6756ae",
+      "name": "150 Secs",
+      "webhookId": "3922e8b8-aa6c-44c3-9773-49b59d59bb53"
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Get Video').item.json.movie.url }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2432,
+        560
+      ],
+      "id": "6b10b0b4-8312-4ba6-896f-1105aa0e31e1",
+      "name": "Download Video"
+    },
+    {
+      "parameters": {
+        "resource": "video",
+        "operation": "upload",
+        "title": "=Top Ten: {{ $('Created Video').item.json.Subject }}",
+        "regionCode": "US",
+        "categoryId": "1",
+        "options": {
+          "description": "=Our Top Ten Rankings of {{ $('Created Video').item.json.Subject }}. Do you agree with us? Let us know in the comments!👇",
+          "privacyStatus": "unlisted"
+        }
+      },
+      "type": "n8n-nodes-base.youTube",
+      "typeVersion": 1,
+      "position": [
+        2652,
+        560
+      ],
+      "id": "ca83716a-d6f5-4d10-a1ca-3d97b070c006",
+      "name": "YouTube",
+      "credentials": {
+        "youTubeOAuth2Api": {
+          "id": "CFzSEYHcGnofCEVV",
+          "name": "YouTube account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1GfG9yh0_z1aF-WQ4kBw4_nkGbGxksvNYBfGT_f7iDdk",
+          "mode": "list",
+          "cachedResultName": " Top Ten Videos  ",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1GfG9yh0_z1aF-WQ4kBw4_nkGbGxksvNYBfGT_f7iDdk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1GfG9yh0_z1aF-WQ4kBw4_nkGbGxksvNYBfGT_f7iDdk/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Subject": "={{ $('Google Sheets').item.json.Subject }}",
+            "Posting Status": "Unlisted"
+          },
+          "matchingColumns": [
+            "Subject"
+          ],
+          "schema": [
+            {
+              "id": "Subject",
+              "displayName": "Subject",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Creation Status",
+              "displayName": "Creation Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Posting Status",
+              "displayName": "Posting Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Video URL",
+              "displayName": "Video URL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        2872,
+        560
+      ],
+      "id": "79a1bbf6-c64b-4c5f-a540-d424f8eb2ad4",
+      "name": "Update Sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "JRZida6erwj587CP",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 10
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        140,
+        795.5
+      ],
+      "id": "41602753-3179-4c39-a471-1a021d6b1b29",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 10
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        140,
+        200
+      ],
+      "id": "877c0d26-5801-4636-8406-92ce3dd8975f",
+      "name": "Schedule Trigger1"
+    },
+    {
+      "parameters": {
+        "content": "# Idea Generator\n",
+        "height": 600,
+        "width": 1280,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        68,
+        -40
+      ],
+      "id": "8b3b2ace-128b-4607-8814-73f4c5415460",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "# Create Elements\n\n",
+        "height": 680,
+        "width": 1280,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        36,
+        575.5
+      ],
+      "id": "3f16df90-31f1-4501-ab5f-e8eb4a1555c5",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "# Generate Video",
+        "height": 680,
+        "width": 520,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1452,
+        375.5
+      ],
+      "id": "d894b122-d5cb-4629-8961-248d62cae80f",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "# Upload Video",
+        "height": 280,
+        "width": 1020
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2082,
+        440
+      ],
+      "id": "596c7cd6-fd09-4ef1-b1b9-fbaf1bea0ff5",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "# Error",
+        "height": 180,
+        "width": 700,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1912,
+        740
+      ],
+      "id": "082726fb-0ac1-4e39-a07d-8b4c23e5f4e3",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "content": "# Polling\n",
+        "height": 180,
+        "width": 700,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1912,
+        975.5
+      ],
+      "id": "55b48ae4-5dec-466d-8db1-f9d90d4418eb",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "content": "# 🚀 Setup Guide\n\n**Author:** [Nate Herk](https://www.youtube.com/@nateherk)\n\n---\n\n1) **[Google Sheet Template](https://docs.google.com/spreadsheets/d/1iZn1g7gKv462eqMc4p7NEFtKXGiMql6lyWa8QRr2lSY/edit?usp=sharing)**\n   - Make a copy and rename it\n   - Link it to your n8n workflow via the Google Sheets node\n\n2) **Connect [OpenRouter Account](https://openrouter.ai/)**\n   - Or use any other chat model provider that supports your needs\n\n3) **[JSON2Video](https://json2video.com/?afco=nate)**\n   - Connect your API key\n   - (Optional) Connect your ElevenLabs API key for voiceovers\n   - **Image model tips:**\n     - *Flux Schnell* and *Freepik Classic* = **Free**\n     - *Flux Pro* = **20 credits per image**\n\n4) **YouTube Credential**\n   - Set up your OAuth2 credentials to post directly to your YouTube channel\n",
+        "height": 600,
+        "width": 520
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "26e04c54-7bc2-4ed9-9619-0f41dae1c9b4",
+      "name": "Sticky Note6"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Video": {
+      "main": [
+        [
+          {
+            "node": "150 Secs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Video": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "10 Secs": {
+      "main": [
+        [
+          {
+            "node": "Get Video",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Created Video",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Error",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "10 Secs",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "10 Secs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4o-mini": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Add to Sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add to Sheet": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "Intro & Outro",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Intro & Outro": {
+      "main": [
+        [
+          {
+            "node": "Ranker",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Intro & Outro Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Intro & Outro",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ranker": {
+      "main": [
+        [
+          {
+            "node": "Generate Video",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Rankings": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Ranker",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4o": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Intro & Outro",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "Ranker",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "150 Secs": {
+      "main": [
+        [
+          {
+            "node": "Get Video",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Created Video": {
+      "main": [
+        [
+          {
+            "node": "Download Video",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download Video": {
+      "main": [
+        [
+          {
+            "node": "YouTube",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "YouTube": {
+      "main": [
+        [
+          {
+            "node": "Update Sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger1": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "d6162214-b31a-4b8b-a92c-c84e005ac653",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "65061545db08d12cf32ea6dbfba9113f42597202fcc589a0c48637df5aebaf98"
+  },
+  "id": "a4DO5EWkMlRkDKIx",
+  "tags": []
+}
